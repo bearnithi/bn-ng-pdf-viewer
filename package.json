@@ -1,0 +1,39 @@
+{
+  "name": "bn-ng-pdf-viewer",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "pdfjs-dist": "^2.0.943"
+  },
+  "devDependencies": {
+    "@types/node": "^8.9.5",
+    "@types/pdfjs-dist": "^0.1.2"
+  },
+  "keywords": [
+    "Angular 6+ PDF Viewer",
+    "Ng PDF viewer",
+    "Ngx pdf viewer",
+    "angular pdf viewer",
+    "bn ng pdf",
+    "pdf viewer component",
+    "ng pdf viewer component",
+    "angular pdf viewer component"
+  ],
+  "description": "Angular 6+ pdf viewer",
+  "license": "MIT",
+  "author": "bearnithi",
+  "person": {
+    "name": "nithi",
+    "email": "bearnithi@gmail.com",
+    "url": "http://bearnithi.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bearnithi/bn-ng-tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bearnithi/bn-ng-tree/issues",
+    "email": "bearnithi@gmail.com"
+  }
+}
