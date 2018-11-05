@@ -1,12 +1,10 @@
 {
   "name": "bn-ng-pdf-viewer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
-    "pdfjs-dist": "^2.0.943"
-  },
-  "devDependencies": {
+    "@angular/common": "^7.0.0 || >6.0.0",
+    "@angular/core": "^7.0.0 || >6.0.0",
+    "pdfjs-dist": "^2.0.943",
     "@types/node": "^8.9.5",
     "@types/pdfjs-dist": "^0.1.2"
   },
@@ -30,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bearnithi/bn-ng-tree.git"
+    "url": "https://github.com/bearnithi/bn-ng-pdf-viewer.git"
   },
   "bugs": {
-    "url": "https://github.com/bearnithi/bn-ng-tree/issues",
+    "url": "https://github.com/bearnithi/bn-ng-pdf-viewer/issues",
     "email": "bearnithi@gmail.com"
   }
 }

@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-ANGULAR 6+ PDF VIEWER USING PDF JS. An easy to use PDF Viewer for Angular 6+.
+ANGULAR 6+ PDF VIEWER USING PDF JS. An easy to use PDF Viewer for Angular 6+. (It supports angular 7 too)
 
 
 ## INSTALLATION
@@ -21,13 +21,6 @@ imports: [
 ]
 ```
 
-### Add 'node' type to your tsconfig.app.json
-```sh
- "types": [
-      "node"
-    ]
-```
-
 ### Add the `bn-ng-pdf-viewer` selector in the component html
 
 ```html
@@ -40,5 +33,5 @@ imports: [
 
 
 ## VERSIONING
-
+0.0.2 - Angular 7 support added
 0.0.1 - A simple angular 6 pdf viewer
