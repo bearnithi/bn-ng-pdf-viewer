@@ -1,3 +1,15 @@
-<div>
-  <canvas id="pdfCanvas" #pdfCanvas></canvas>
+<div class="bn-pdf {{styleClass}}">
+  <div class="bn-pdf-header">
+    
+    <button [disabled]="pageNo == 1" title="previous" class="bn-pdf-header__icon" (click)="prevPage()"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+    <button [disabled]="pageNo == numOfPages" title="next" class="bn-pdf-header__icon" (click)="nextPage()"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+    <input (keyup.enter)="renderPDFPage(pageNo)" (keypress)="validateNumbers($event)" [(ngModel)]="pageNo" type="text" class="bn-pdf-header__input"> <span class="bn-pdf-header__pageno">/ {{ numOfPages }}</span>
+    <button (click)="zoomIn()" class="bn-pdf-header__icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+    <button (click)="zoomOut()" class="bn-pdf-header__icon"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+  </div>
+  <div class="bn-pdf-body">
+      <canvas class="bn-pdf__viewer" id="pdfCanvas" #PDFCanvas></canvas>
+  </div>
+
+  <div *ngIf="showLoader" class="bn-pdf__loader"></div>
 </div>

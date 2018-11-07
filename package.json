@@ -1,6 +1,6 @@
 {
   "name": "bn-ng-pdf-viewer",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^7.0.0 || >6.0.0",
     "@angular/core": "^7.0.0 || >6.0.0",
