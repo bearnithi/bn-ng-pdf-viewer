@@ -34,7 +34,7 @@ imports: [
 ```
 ## OPTIONS
 * [[pdf]](#src)
-* [[(pageNo)]](#pageNo)
+* [[pageNo]](#pageNo)
 
 #### [PDF]
 
