@@ -8,11 +8,9 @@ npm install bn-ng-pdf-viewer --save
 
 ## Content
 
-* [Install](README.md#install)
-* [Usage](README.md#usage)
-* [Options](README.md#options)
-
-
+* [Install](#installation)
+* [Usage](#usage)
+* [Options](#options)
 
 ## USAGE
 ### Import the bn-ng-pdf-viewer in the module
@@ -32,9 +30,12 @@ imports: [
 ```html
 <bn-ng-pdf-viewer [showAll]="true" [PDF]="'http://www.africau.edu/images/default/sample.pdf'" [pageNo]="1" [styleClass]="my-viewer-class"></bn-ng-pdf-viewer>
 ```
+
 ## OPTIONS
-* [[pdf]](#src)
-* [[pageNo]](#pageNo)
+* [[PDF]](#pdf)
+* [[pageNo]](#pageno)
+* [[showAll]](#showall)
+* [[styleClass]](#styleclass)
 
 #### [PDF]
 
