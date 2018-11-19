@@ -5,6 +5,7 @@ import {
 
 // imports typings first
 import { PDFJSStatic, PDFDocumentProxy, PDFPromise } from 'pdfjs-dist';
+import { ValidationService } from './services/validation.service';
 
 // then import the actual library using require() instead of import
 const PDFJS: PDFJSStatic = require('pdfjs-dist');
@@ -49,26 +50,26 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
   @ViewChild('PDFPageLink') PDFPageLinkElem: ElementRef;
 
   @Output() getPDFInfo = new EventEmitter<any>();
-  @Output() PDFRendered = new EventEmitter<any>();
+  @Output() PDFRender = new EventEmitter<any>();
 
 
   public numOfPages: number;
   private scale = 1.5;
   public PDFDocument: any;
   public showLoader: boolean;
-  public isPDFValid: boolean;
+  public showError: boolean;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2, public validation: ValidationService) {
     let pdfWorkerSrc: string;
 
     if (window.hasOwnProperty('pdfWorkerSrc') && typeof (window as any).pdfWorkerSrc === 'string' && (window as any).pdfWorkerSrc) {
       pdfWorkerSrc = (window as any).pdfWorkerSrc;
     } else {
-      pdfWorkerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${ (PDFJS as any).version }/pdf.worker.min.js`;
+      pdfWorkerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${(PDFJS as any).version}/pdf.worker.min.js`;
     }
 
     (PDFJS as any).GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
-   }
+  }
 
   ngOnInit() {
 
@@ -91,10 +92,11 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
             numOfPages: this.numOfPages
           };
           this.getPDFInfo.emit(PDFInfo);
+          this.PDFRender.emit('LOADING');
           this.renderPDF();
         },
         (error) => {
-          console.log(error);
+          this.trackError(error);
         }
       );
     }
@@ -109,6 +111,7 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   renderPDFPage(pageNo) {
+    this.showError = false;
     if (!isNaN(pageNo)) {
       pageNo = parseInt(pageNo, 0);
     }
@@ -118,6 +121,7 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
     }
     this.showLoader = true;
     this.PDFDocument.getPage(pageNo).then((page) => {
+      this.PDFRender.emit('PAGE_CHANGE');
       const viewport = page.getViewport(this.scale);
       const canvas: any = this.PDFCanvasElem.nativeElement;
       const context = canvas.getContext('2d');
@@ -132,8 +136,9 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
       const renderTask = page.render(renderContext);
       renderTask.then(() => {
         this.showLoader = false;
+        this.PDFRender.emit('FINISHED');
       }, (error) => {
-        this.showLoader = false;
+        this.trackError(error);
       });
     });
   }
@@ -153,13 +158,15 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
       const renderTask = page.render(renderContext);
       renderTask.then(() => {
         this.showLoader = false;
+        this.PDFRender.emit('FINISHED');
       }, (error) => {
-        this.showLoader = false;
+        this.trackError(error);
       });
     });
   }
 
   renderAllPages() {
+    this.showError = false;
     this.showLoader = true;
     const PDFContainer: HTMLElement = this.PDFContainerElem.nativeElement;
 
@@ -168,16 +175,16 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
     }
 
     for (let i = 1; i <= this.numOfPages; i++) {
-        const div: HTMLElement = this.renderer.createElement('div');
+      const div: HTMLElement = this.renderer.createElement('div');
 
-        div.setAttribute('id', `bn-ng-pdf-page-${i}`);
-        div.setAttribute('style', 'position: relative');
+      div.setAttribute('id', `bn-ng-pdf-page-${i}`);
+      div.setAttribute('style', 'position: relative');
 
-        PDFContainer.appendChild(div);
+      PDFContainer.appendChild(div);
 
-        const canvas: HTMLCanvasElement = document.createElement('canvas');
-        div.appendChild(canvas);
-        this.renderPDFPageSync(i, canvas);
+      const canvas: HTMLCanvasElement = document.createElement('canvas');
+      div.appendChild(canvas);
+      this.renderPDFPageSync(i, canvas);
     }
   }
 
@@ -220,16 +227,16 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
     this.renderPDF();
   }
 
-  /* VALIDATION */
-  validateNumbers(e) {
-    const pattern = /[0-9]/;
-
-    const inputChar = String.fromCharCode(e.charCode);
-
-    if (!pattern.test(inputChar)) {
-      e.preventDefault();
-    }
+  trackError(error) {
+    this.showLoader = false;
+    this.showError = true;
+    this.PDFDocument = undefined;
+    this.PDF = '';
+    this.PDFRender.emit('ERROR');
+    console.log(error);
   }
 
-
+  isValidPDF() {
+    return (this.PDF && this.PDF !== '' && !this.showError) ? true : false;
+  }
 }

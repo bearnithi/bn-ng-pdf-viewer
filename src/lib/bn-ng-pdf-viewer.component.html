@@ -1,24 +1,28 @@
 <div class="bn-pdf {{styleClass}}">
-  <div *ngIf="PDF && PDF != ''" class="bn-pdf-header">
+  <div *ngIf="isValidPDF()" class="bn-pdf-header">
 
     <button [disabled]="pageNo == 1" title="previous" class="bn-pdf-header__icon" (click)="prevPage()"><i class="fa fa-arrow-up"
         aria-hidden="true"></i></button>
     <button [disabled]="pageNo == numOfPages" title="next" class="bn-pdf-header__icon" (click)="nextPage()"><i class="fa fa-arrow-down"
         aria-hidden="true"></i></button>
-    <input (keyup.enter)="goToPage()" (change)="goToPage()" (keypress)="validateNumbers($event)"
+    <input (keyup.enter)="goToPage()" (change)="goToPage()" (keypress)="validation.validateNumbers($event)"
      [(ngModel)]="pageNo" type="text"
       class="bn-pdf-header__input"> <span class="bn-pdf-header__pageno">/ {{ numOfPages }}</span>
     <button (click)="zoomIn()" class="bn-pdf-header__icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
     <button (click)="zoomOut()" class="bn-pdf-header__icon"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
   </div>
   <div class="bn-pdf-body">
-    <div [hidden]="!PDF && PDF === ''">
+    <div [hidden]="!isValidPDF()">
       <a href="#" id="PDF-page-link" #PDFPageLink style="display: none"></a>
       <div id="pdf-container" #PDFContainer></div>
       <canvas class="bn-pdf__viewer" id="pdfCanvas" #PDFCanvas></canvas>
     </div>
-    <ng-container *ngIf="!PDF || PDF === ''">
-      <p class="bn-pdf__message">Not a valid PDF Document</p>
+    <ng-container *ngIf="!isValidPDF()">
+      <p class="bn-pdf__message">PDF VIEWER</p>
+    </ng-container>
+
+    <ng-container *ngIf="showError">
+      <p class="bn-pdf__message bn-pdf__message--error">An error has been occured. Please check whether the PDF is valid or not.</p>
     </ng-container>
   </div>
 

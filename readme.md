@@ -36,6 +36,9 @@ imports: [
 * [[pageNo]](#pageno)
 * [[showAll]](#showall)
 * [[styleClass]](#styleclass)
+* [(PDFRender)](#pdfrender)
+
+### INPUT PROPERTIES
 
 #### [PDF]
 
@@ -85,6 +88,17 @@ Add custom css class to the PDF viewer
 ```
 [styleClass]="true"
 ```
+### OUTPUT PROPERTIES
+
+#### (PDFRender)
+| Property | Type | Required |
+| --- | ---- | --- |
+| [PDFRender] | *string* | *Optional* |
+
+PDF RENDER EMITS THREE VALUES:
+1. 'LOADING' - It emits whenever a PDF Page is loading.
+2. 'FINISHED' - It emits once the PDF page is successfully rendered.
+3. 'ERROR' - It emits once an error occured while rendering the PDF page.
 
 ## VERSIONING
 1.1.0 - Show All pages option added
