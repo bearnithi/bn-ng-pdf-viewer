@@ -1,13 +1,24 @@
 <div class="bn-pdf {{styleClass}}">
   <div *ngIf="isValidPDF()" class="bn-pdf-header">
+    <!-- DOWNLOAD BUTTONS -->
 
+     <a *ngIf="enableDownload" href="{{PDF}}"
+     class="bn-pdf-header__icon bn-pdf-header__icon--download"
+      download="{{ fileName }}"><i class="fa fa-download" aria-hidden="true"></i></a>
+
+
+    <!-- PAGINATION BUTTONS -->
     <button [disabled]="pageNo == 1" title="previous" class="bn-pdf-header__icon" (click)="prevPage()"><i class="fa fa-arrow-up"
         aria-hidden="true"></i></button>
     <button [disabled]="pageNo == numOfPages" title="next" class="bn-pdf-header__icon" (click)="nextPage()"><i class="fa fa-arrow-down"
         aria-hidden="true"></i></button>
+
+    <!-- GO TO PAGE -->
     <input (keyup.enter)="goToPage()" (change)="goToPage()" (keypress)="validation.validateNumbers($event)"
      [(ngModel)]="pageNo" type="text"
       class="bn-pdf-header__input"> <span class="bn-pdf-header__pageno">/ {{ numOfPages }}</span>
+
+    <!-- ZOOM BUTTONS -->
     <button (click)="zoomIn()" class="bn-pdf-header__icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
     <button (click)="zoomOut()" class="bn-pdf-header__icon"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
   </div>

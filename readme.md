@@ -6,6 +6,10 @@ ANGULAR 6+ PDF VIEWER USING PDF JS. An easy to use stylish PDF Viewer for Angula
 npm install bn-ng-pdf-viewer --save
 ```
 
+## DOCUMENTATION
+[DOCUMENTATION](http://bearnithi.com/bn-ng-components/bn-ng-pdf-viewer/)
+
+
 ## Content
 
 * [Install](#installation)
@@ -36,6 +40,7 @@ imports: [
 * [[pageNo]](#pageno)
 * [[showAll]](#showall)
 * [[styleClass]](#styleclass)
+* [[enableDownload]](#pageno)
 * [(PDFRender)](#pdfrender)
 
 ### INPUT PROPERTIES
@@ -86,8 +91,20 @@ Show all the pages
 Add custom css class to the PDF viewer
 
 ```
-[styleClass]="true"
+[styleClass]="my-custom-css"
 ```
+
+#### [enableDownload]
+
+| Property | Type | Required |
+| --- | ---- | --- |
+| [enableDownload] | *boolean* | *Optional* |
+
+To enable download option in PDF viewer
+```
+[enableDownload]="true"
+```
+
 ### OUTPUT PROPERTIES
 
 #### (PDFRender)

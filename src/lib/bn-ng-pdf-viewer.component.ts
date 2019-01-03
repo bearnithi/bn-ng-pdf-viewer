@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 // imports typings first
-import { PDFJSStatic, PDFDocumentProxy, PDFPromise } from 'pdfjs-dist';
+import { PDFJSStatic, PDFDocumentProxy, PDFPromise,  } from 'pdfjs-dist';
 import { ValidationService } from './services/validation.service';
 
 // then import the actual library using require() instead of import
@@ -45,6 +45,8 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   @Input() styleClass: string;
+  @Input() enableDownload: false;
+
   @ViewChild('PDFCanvas') PDFCanvasElem: ElementRef;
   @ViewChild('PDFContainer') PDFContainerElem: ElementRef;
   @ViewChild('PDFPageLink') PDFPageLinkElem: ElementRef;
@@ -55,6 +57,8 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
 
   public numOfPages: number;
   private scale = 1.5;
+  public documentURL: string;
+  public fileName = 'download.pdf';
   public PDFDocument: any;
   public showLoader: boolean;
   public showError: boolean;
@@ -99,6 +103,9 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
           this.trackError(error);
         }
       );
+
+      this.documentURL = PDFJS.createObjectURL();
+      this.fileName = PDFJS.getFilenameFromUrl(this.PDF);
     }
   }
 
@@ -225,6 +232,11 @@ export class BnNgPdfViewerComponent implements OnInit, OnChanges, AfterViewInit 
     }
     this.scale -= 0.25;
     this.renderPDF();
+  }
+
+  /* DOWNLOAD PDF */
+  downloadPDF() {
+    console.log(PDFJS);
   }
 
   trackError(error) {
